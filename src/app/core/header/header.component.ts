@@ -1,4 +1,4 @@
-import { AsyncPipe, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
@@ -9,7 +9,7 @@ import { SecurityService } from 'src/app/shared/security';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
   standalone: true,
-  imports: [RouterLink, MatButtonModule, AsyncPipe, NgIf],
+  imports: [RouterLink, MatButtonModule, AsyncPipe],
 })
 export class HeaderComponent {
   #securityService = inject(SecurityService);

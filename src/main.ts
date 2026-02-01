@@ -17,9 +17,9 @@ bootstrapApplication(AppComponent, {
         domain: 'dev-xbu2-fid.eu.auth0.com',
         clientId: 'YgUoOMh2jc4CQuo8Ky9PS7npW3Q4ckX9',
         authorizationParams: {
-          redirect_uri: window ? window.location.origin : '',
+          redirect_uri: window.location.origin,
         },
       }),
     ),
   ],
-});
+}).catch(console.error);

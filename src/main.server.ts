@@ -1,11 +1,37 @@
-import { bootstrapApplication } from '@angular/platform-browser';
-import { AppComponent } from './app/app.component';
-import { config } from './app/app.config.server';
-import localeDe from '@angular/common/locales/de-AT';
-import { registerLocaleData } from '@angular/common';
+import { AuthService } from '@auth0/auth0-angular';
+import { of } from 'rxjs';
+import {
+  bootstrapApplication,
+  BootstrapContext,
+} from '@angular/platform-browser';
+import { AppComponent } from '@app/app.component';
+import { appConfig } from '@app/app.config';
+import { provideServerRendering } from '@angular/platform-server';
+import { provideNoopAnimations } from '@angular/platform-browser/animations';
 
-registerLocaleData(localeDe, 'de-AT');
+class ServerAuthServiceStub {
+  isAuthenticated$ = of(false);
+  user$ = of(null);
+  loginWithRedirect() {
+    throw new Error('Auth0 not available on server');
+  }
+}
 
-const bootstrap = () => bootstrapApplication(AppComponent, config);
-
-export default bootstrap;
+export default function bootstrap(context: BootstrapContext) {
+  return bootstrapApplication(
+    AppComponent,
+    {
+      ...appConfig,
+      providers: [
+        ...appConfig.providers,
+        provideServerRendering(),
+        provideNoopAnimations(),
+        {
+          provide: AuthService,
+          useClass: ServerAuthServiceStub,
+        },
+      ],
+    },
+    context,
+  );
+}

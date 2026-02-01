@@ -1,11 +1,12 @@
 import { inject, Injectable } from '@angular/core';
-import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { filter, map, switchMap } from 'rxjs/operators';
 import { customersActions } from './customers.actions';
 import { Store } from '@ngrx/store';
 import { customersFeature } from '@app/customers/data/customers.reducer';
 import { fromCustomers } from '@app/customers/data/customers.selectors';
 import { CustomersService } from '@app/customers/data/customers.service';
+import { concatLatestFrom } from '@ngrx/operators';
 
 @Injectable()
 export class CustomersEffects {
